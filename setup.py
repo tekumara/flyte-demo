@@ -15,7 +15,7 @@ setup(
     package_data={
         "": ["py.typed"],
     },
-    install_requires=[],
+    install_requires=["sqlalchemy==1.4.22"],
     extras_require={
         "dev": [
             "black==21.7b0",
