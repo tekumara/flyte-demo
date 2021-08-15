@@ -16,3 +16,4 @@ node_modules/
 .venv/
 flyte-package.tgz
 .kube/
+aircraft-db.sqlite
