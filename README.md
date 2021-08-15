@@ -1,6 +1,6 @@
 # aircraft
 
-aircraft etl example using Flyte
+aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ETL Example](https://docs.prefect.io/core/tutorial/01-etl-before-prefect.html)
 
 ## Development
 
