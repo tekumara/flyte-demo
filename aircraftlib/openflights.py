@@ -1,14 +1,13 @@
 import pathlib
-import collections
 import csv
-from typing import Dict, List, Any
+from typing import Dict, List, NamedTuple
 
 
 def _capture_path(source: str) -> pathlib.Path:
     return pathlib.Path(__file__).parent.absolute() / "data" / "openflights" / source
 
 
-def fetch_routes() -> List[Dict[str, Any]]:
+def fetch_routes() -> List[Dict[str, str]]:
     capture_path = _capture_path("routes.dat")
     result = []
     with open(capture_path, "r", encoding="utf-8") as f:
@@ -38,7 +37,7 @@ def fetch_equipment() -> Dict[str, str]:
     return result
 
 
-def fetch_airports() -> Dict[str, Dict[str, Any]]:
+def fetch_airports() -> Dict[str, Dict[str, str]]:
     capture_path = _capture_path("airports.dat")
     result = {}  # { airport code: { field: value } }
     with open(capture_path, "r", encoding="utf-8") as f:
@@ -51,7 +50,10 @@ def fetch_airports() -> Dict[str, Dict[str, Any]]:
     return result
 
 
-OpenFlightsData = collections.namedtuple("OpenFlightsData", "routes airlines airports")
+class OpenFlightsData(NamedTuple):
+    routes:List[Dict[str, str]]
+    airlines:Dict[str, str]
+    airports:Dict[str, Dict[str, str]]
 
 
 def fetch_reference_data() -> OpenFlightsData:

@@ -1,31 +1,34 @@
-from typing import List, Any, Dict
+from collections import OrderedDict
+from typing import List, Any, Dict, Optional
 
 from .opensky import AIRCRAFT_VECTOR_FIELDS
 
-FIELS_OF_INTEREST = (
-    "icao",
-    "callsign",
-    "time_position",
-    "last_contact",
-    "longitude",
-    "latitude",
-    "baro_altitude",
-    "on_ground",
-    "velocity",
-    "true_track",
-    "vertical_rate",
-    "geo_altitude",
+FIELDS_OF_INTEREST = OrderedDict(
+    {
+        "icao": str,
+        "callsign": str,
+        "time_position": int,
+        "last_contact": int,
+        "longitude": float,
+        "latitude": float,
+        "baro_altitude": float,
+        "on_ground": bool,
+        "velocity": float,
+        "true_track": float,
+        "vertical_rate": float,
+        "geo_altitude": float,
+    }
 )
 
 
-def clean_vector(raw_vector: List[Any]):
+def clean_vector(raw_vector: List[Any]) -> Optional[Dict[str, Any]]:
     clean = dict(zip(AIRCRAFT_VECTOR_FIELDS, raw_vector[:]))
 
     if None in (clean["longitude"], clean["latitude"]):
         # this is an invalid vector, ignore it
         return None
 
-    return {key: clean[key] for key in FIELS_OF_INTEREST}
+    return {key: clean[key] for key in FIELDS_OF_INTEREST}
 
 
 def add_airline_info(vector: Dict[str, Any], airlines: Dict[str, str]) -> None:

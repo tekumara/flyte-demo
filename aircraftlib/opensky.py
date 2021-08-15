@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
 import os
 import json
 import pathlib
@@ -31,6 +32,29 @@ from .position import Area
 # 14 squawk             string      The transponder code aka Squawk. Can be null.
 # 15 spi                boolean     Whether flight status indicates special purpose indicator.
 # 16 position_source    int         Origin of this state’s position: 0 = ADS-B, 1 = ASTERIX, 2 = MLAT
+OPEN_SKY_FIELDS = OrderedDict(
+    {
+        "icao24": str,
+        "callsign": str,
+        "origin_country": str,
+        "time_position": int,
+        "last_contact": int,
+        "longitude": float,
+        "latitude": float,
+        "baro_altitude": float,
+        "on_ground": bool,
+        "velocity": float,
+        "true_track": float,
+        "vertical_rate": float,
+        # Optional[List[int]] not supported yet by FlyteSchema
+        "sensors": int,
+        "geo_altitude": float,
+        "squawk": str,
+        "spi": bool,
+        "position_source": int,
+    }
+)
+
 
 AIRCRAFT_VECTOR_FIELDS = (
     "icao",
