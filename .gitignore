@@ -14,3 +14,5 @@ typings/
 pip-wheel-metadata/
 node_modules/
 .venv/
+flyte-package.tgz
+.kube/

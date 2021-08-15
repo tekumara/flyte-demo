@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.7-slim-buster
 
 WORKDIR /root
 ENV VENV /opt/venv
@@ -19,12 +19,11 @@ ENV VENV /opt/venv
 RUN python3 -m venv ${VENV}
 ENV PATH="${VENV}/bin:$PATH"
 
-# Install Python dependencies
-COPY ./requirements.txt /root
-RUN pip install -r /root/requirements.txt
-
 # Copy the actual code
 COPY . /root
+
+# Install Python dependencies
+RUN pip install -e .
 
 # This tag is supplied by the build script and will be used to determine the version
 # when registering tasks, workflows, and launch plans
