@@ -1,11 +1,13 @@
-from aircraftlib.analysis import FIELDS_OF_INTEREST
-from aircraftlib.opensky import OPEN_SKY_FIELDS
-from aircraftlib.openflights import OpenFlightsData
 from typing import Dict, List
-import aircraftlib as aclib
+
+import pandas as pd
 from flytekit import task, workflow
 from flytekit.types.schema import FlyteSchema
-import pandas as pd
+
+import aircraftlib as aclib
+from aircraftlib.analysis import FIELDS_OF_INTEREST
+from aircraftlib.openflights import OpenFlightsData
+from aircraftlib.opensky import OPEN_SKY_FIELDS
 
 aircraft_schema = FlyteSchema[OPEN_SKY_FIELDS]
 cleaned_fields = FIELDS_OF_INTEREST.copy()
@@ -47,14 +49,16 @@ def transform(raw_aircraft_data: aircraft_schema, airlines: Dict[str, str]) -> c
 
 
 @task()
-def load_reference_data(routes: List[Dict[str, str]], airlines: Dict[str, str], airports: Dict[str, Dict[str, str]]):
+def load_reference_data(
+    routes: List[Dict[str, str]], airlines: Dict[str, str], airports: Dict[str, Dict[str, str]]
+) -> None:
     print("saving reference data...")
     db = aclib.Database()
     db.update_reference_data(OpenFlightsData(routes, airlines, airports))
 
 
 @task()
-def load_live_data(live_aircraft_data: cleaned_schema):
+def load_live_data(live_aircraft_data: cleaned_schema) -> None:
     print("saving live aircraft data...")
     db = aclib.Database()
     df = live_aircraft_data.open().all()
@@ -63,7 +67,7 @@ def load_live_data(live_aircraft_data: cleaned_schema):
 
 
 @workflow()
-def main():
+def main() -> None:
     reference_data = extract_reference_data()
     live_data = extract_live_data()
 

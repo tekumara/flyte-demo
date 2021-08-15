@@ -1,5 +1,5 @@
-import pathlib
 import csv
+import pathlib
 from typing import Dict, List, NamedTuple
 
 
@@ -51,12 +51,10 @@ def fetch_airports() -> Dict[str, Dict[str, str]]:
 
 
 class OpenFlightsData(NamedTuple):
-    routes:List[Dict[str, str]]
-    airlines:Dict[str, str]
-    airports:Dict[str, Dict[str, str]]
+    routes: List[Dict[str, str]]
+    airlines: Dict[str, str]
+    airports: Dict[str, Dict[str, str]]
 
 
 def fetch_reference_data() -> OpenFlightsData:
-    return OpenFlightsData(
-        routes=fetch_routes(), airlines=fetch_airlines(), airports=fetch_airports()
-    )
+    return OpenFlightsData(routes=fetch_routes(), airlines=fetch_airlines(), airports=fetch_airports())

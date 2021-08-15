@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from typing import List, Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from .opensky import AIRCRAFT_VECTOR_FIELDS
 

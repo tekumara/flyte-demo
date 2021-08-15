@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from collections import OrderedDict
-import os
+import binascii
 import json
+import os
 import pathlib
 import struct
-import binascii
-from typing import Any, List, Dict
+from collections import OrderedDict
+from typing import Any, Dict, List, Optional
 
 import requests
 
 from .position import Area
-
 
 # OpenSky API states/all reference
 # Source: https://opensky-network.org/apidoc/rest.html#all-state-vectors
@@ -77,7 +76,7 @@ AIRCRAFT_VECTOR_FIELDS = (
 )
 
 
-def _api_request_json(req: str, options: Dict[str, Any] = None) -> Dict[str, Any]:
+def _api_request_json(req: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     response = requests.get(
         "https://opensky-network.org/api/{}".format(req),
         auth=(),
@@ -88,27 +87,22 @@ def _api_request_json(req: str, options: Dict[str, Any] = None) -> Dict[str, Any
     return response.json()
 
 
-def _capture_path(area: Area = None) -> str:
+def _capture_path(area: Optional[Area] = None) -> pathlib.Path:
     postfix = ""
     if area:
         # a stable postfix based on the area input
-        postfix = "-%s" % binascii.b2a_base64(
-            struct.pack("q", hash(area.bounding_box)), newline=False
-        ).decode("utf-8").replace("/", "-")
+        postfix = "-%s" % binascii.b2a_base64(struct.pack("q", hash(area.bounding_box)), newline=False).decode(
+            "utf-8"
+        ).replace("/", "-")
 
-    return (
-        pathlib.Path(__file__).parent.absolute()
-        / "data"
-        / "opensky"
-        / "capture{}.json".format(postfix)
-    )
+    return pathlib.Path(__file__).parent.absolute() / "data" / "opensky" / "capture{}.json".format(postfix)
 
 
 FAILURE_COUNT = 0
 
 
 def fetch_live_aircraft_data(
-    area: Area = None,
+    area: Optional[Area] = None,
     offline: bool = True,
     capture: bool = True,
     simulate_failures: int = 0,
@@ -119,7 +113,7 @@ def fetch_live_aircraft_data(
         raise RuntimeError("HTTP Timeout!")
 
     options = {}
-    if area != None:
+    if area is not None:
         if isinstance(area, Area):
             area.validate()
             area_fields = area.bounding_box

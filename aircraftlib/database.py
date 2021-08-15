@@ -1,8 +1,7 @@
-from typing import List, Any, Dict
+from typing import Any, Dict, List
 
-from sqlalchemy import Column, String, Integer, Boolean, Float
+from sqlalchemy import Boolean, Column, Float, Integer, String, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from .openflights import OpenFlightsData
@@ -70,9 +69,7 @@ class Database:
 
     def add_live_aircraft_data(self, vectors: List[Dict[str, Any]]) -> None:
         for entry in vectors:
-            vec = AircraftVector(
-                **{k: entry[k] for k in AircraftVector.__table__.columns.keys()}
-            )
+            vec = AircraftVector(**{k: entry[k] for k in AircraftVector.__table__.columns.keys()})
             # insert or update vector
             self.session.merge(vec)
         self.session.commit()

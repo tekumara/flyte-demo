@@ -1,12 +1,10 @@
 import aircraftlib as aclib
 
 
-def main():
+def main() -> None:
     # Get the live aircraft vector data around Dulles airport
     dulles_airport_position = aclib.Position(lat=38.9519444444, long=-77.4480555556)
-    area_surrounding_dulles = aclib.bounding_box(
-        position=dulles_airport_position, radius_km=200
-    )
+    area_surrounding_dulles = aclib.bounding_box(position=dulles_airport_position, radius_km=200)
 
     print("fetching reference data...")
     ref_data = aclib.fetch_reference_data()
