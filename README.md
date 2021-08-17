@@ -2,15 +2,13 @@
 
 aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ETL Example](https://docs.prefect.io/core/tutorial/01-etl-before-prefect.html)
 
-## Development
-
-### Prerequisites
+## Prerequisites
 
 - make
 - node (required for pyright. Install via `brew install node`)
 - python >= 3.7
 
-### Getting started
+## Getting started
 
 To get started run `make install`. This will:
 
@@ -22,7 +20,13 @@ Then run `make` to see the options for running checks, tests etc.
 
 `. .venv/bin/activate` activates the virtualenv. When the requirements in `setup.py` change, the virtualenv is updated by the make targets that use the virtualenv.
 
-### Usage
+Install flytectl:
+
+```
+brew install flyteorg/homebrew-tap/flytectl
+```
+
+## Flyte Usage
 
 Once the virtualenv has been created and activated, you can run the scripts locally, eg:
 
@@ -42,7 +46,7 @@ flytectl sandbox exec -- docker build . --tag aircraft:v1
 # Package (serialise to protobuf)
 pyflyte package --image aircraft:v1
 
-# Register 
+# Register
 flytectl register files --project flyteexamples --domain development --archive flyte-package.tgz --version v1
 
 # Create execution spec from launchplan
@@ -51,3 +55,9 @@ flytectl get launchplan -p flyteexamples -d development aircraft.02_etl_flow.mai
 # Execute
 fytectl create execution --project flytesnacks --domain development --execFile exec.yaml
 ```
+
+## Troubleshooting
+
+### [LIMIT_EXCEEDED] limit exceeded
+
+[Increase the storage](https://github.com/flyteorg/flyte/discussions/1342) of the sandbox.
