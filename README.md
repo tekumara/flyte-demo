@@ -53,7 +53,7 @@ flytectl register files --project flyteexamples --domain development --archive f
 flytectl get launchplan -p flyteexamples -d development aircraft.02_etl_flow.main --execFile exec.yaml
 
 # Execute
-fytectl create execution --project flytesnacks --domain development --execFile exec.yaml
+flytectl create execution --project flyteexamples --domain development --execFile exec.yaml
 ```
 
 ## Troubleshooting
