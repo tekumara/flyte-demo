@@ -17,3 +17,4 @@ node_modules/
 flyte-package.tgz
 .kube/
 aircraft-db.sqlite
+exec.yaml

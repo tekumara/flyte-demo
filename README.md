@@ -44,17 +44,27 @@ flytectl sandbox start --source .
 flytectl sandbox exec -- docker build . --tag aircraft:v1
 
 # Package (serialise to protobuf)
-pyflyte package --image aircraft:v1
+pyflyte --pkgs aircraft package -f --image aircraft:v1 
 
 # Register
 flytectl register files --project flyteexamples --domain development --archive flyte-package.tgz --version v1
+
+# Visualise the execution graph
+flytectl get workflows --project flyteexamples --domain development aircraft.02_etl_flow.main --version v1 -o doturl
 
 # Create execution spec from launchplan
 flytectl get launchplan -p flyteexamples -d development aircraft.02_etl_flow.main --execFile exec.yaml
 
 # Execute
 flytectl create execution --project flyteexamples --domain development --execFile exec.yaml
+
+# Monitor
+flytectl get execution --project flyteexamples --domain development [name]
 ```
+
+Visit the UI: [http://localhost:30081/console](http://localhost:30081/console)
+
+For more info see [Building Large Apps - Deploy to the Cloud](https://docs.flyte.org/projects/cookbook/en/latest/auto/larger_apps/larger_apps_deploy.html)
 
 ## Troubleshooting
 

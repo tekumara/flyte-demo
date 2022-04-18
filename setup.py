@@ -15,7 +15,7 @@ setup(
     package_data={
         "": ["py.typed"],
     },
-    install_requires=["sqlalchemy==1.4.22", "flytekit==0.21.3"],
+    install_requires=["sqlalchemy==1.4.22", "flytekit~=0.32"],
     extras_require={
         "dev": [
             "black==21.7b0",
