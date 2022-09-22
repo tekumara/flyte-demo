@@ -15,10 +15,10 @@ setup(
     package_data={
         "": ["py.typed"],
     },
-    install_requires=["sqlalchemy==1.4.22", "flytekit~=0.32"],
+    install_requires=["sqlalchemy~=1.4.41", "flytekit~=1.1.3"],
     extras_require={
         "dev": [
-            "black==21.7b0",
+            "black~=22.8.0",
             "isort==5.9.3",
             "flake8==3.9.2",
             "flake8-annotations==2.6.2",

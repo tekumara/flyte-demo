@@ -46,6 +46,9 @@ flytectl sandbox exec -- docker build . --tag aircraft:v1
 # Package (serialise to protobuf)
 pyflyte --pkgs aircraft package -f --image aircraft:v1 
 
+# tell flytectl where to find the config file
+export FLYTECTL_CONFIG=$HOME/.flyte/config-sandbox.yaml
+
 # Register
 flytectl register files --project flyteexamples --domain development --archive flyte-package.tgz --version v1
 
@@ -65,6 +68,10 @@ flytectl get execution --project flyteexamples --domain development [name]
 Visit the UI: [http://localhost:30081/console](http://localhost:30081/console)
 
 For more info see [Building Large Apps - Deploy to the Cloud](https://docs.flyte.org/projects/cookbook/en/latest/auto/larger_apps/larger_apps_deploy.html)
+
+## Known issues
+
+[What is the distinction between flytectl sandbox and flytectl demo](https://github.com/flyteorg/flyte/issues/2503)
 
 ## Troubleshooting
 
