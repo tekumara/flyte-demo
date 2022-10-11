@@ -1,30 +1,25 @@
-from pathlib import Path
-
 from setuptools import find_packages, setup
-
-long_description = Path("README.md").read_text()
 
 setup(
     name="aircraft",
     version="0.0.0",
     description="aircraft etl example using Flyte",
-    long_description=long_description,
     long_description_content_type="text/markdown",
     python_requires=">=3.7",
     packages=find_packages(exclude=["tests"]),
     package_data={
         "": ["py.typed"],
     },
-    install_requires=["sqlalchemy~=1.4.41", "flytekit~=1.1.3"],
+    install_requires=["sqlalchemy~=1.4.41", "flytekit~=1.2.1"],
     extras_require={
         "dev": [
-            "black~=22.8.0",
-            "isort==5.9.3",
-            "flake8==3.9.2",
-            "flake8-annotations==2.6.2",
-            "flake8-colors==0.1.9",
-            "pre-commit==2.14.0",
-            "pytest==6.2.4",
+            "black~=22.10",
+            "isort~=5.10",
+            "flake8~=5.0",
+            "flake8-annotations~=2.9",
+            "flake8-colors~=0.1",
+            "pre-commit~=2.20",
+            "pytest~=7.1",
         ]
     },
 )
