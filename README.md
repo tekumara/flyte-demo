@@ -44,9 +44,9 @@ flytectl sandbox start --source .
 flytectl sandbox exec -- docker build . --tag aircraft:v1
 
 # Package (serialise to protobuf)
-pyflyte --pkgs aircraft package -f --image aircraft:v1 
+pyflyte --pkgs aircraft package -f --image aircraft:v1
 
-# tell flytectl where to find the config file
+# tell flytectl where to find the config file (if not using direnv)
 export FLYTECTL_CONFIG=$HOME/.flyte/config-sandbox.yaml
 
 # Register
@@ -63,6 +63,16 @@ flytectl create execution --project flyteexamples --domain development --execFil
 
 # Monitor
 flytectl get execution --project flyteexamples --domain development [name]
+```
+
+Accessing kubes:
+
+```
+# set kubeconfig (if not using direnv)
+export KUBECONFIG=$HOME/.flyte/k3s/k3s.yaml
+
+# set default namespace to aid debugging
+kubectl config set-context --current --namespace=flyteexamples-development
 ```
 
 Visit the UI: [http://localhost:30081/console](http://localhost:30081/console)
