@@ -19,11 +19,12 @@ ENV VENV /opt/venv
 RUN python3 -m venv ${VENV}
 ENV PATH="${VENV}/bin:$PATH"
 
-# Copy the actual code
-COPY . /root
+# python dependencies
+COPY setup.py pyproject.toml /root/
+RUN pip install --no-cache-dir -e .
 
-# Install Python dependencies
-RUN pip install -e .
+# Copy the actual code
+COPY . /root/
 
 # This tag is supplied by the build script and will be used to determine the version
 # when registering tasks, workflows, and launch plans
