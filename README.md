@@ -1,4 +1,4 @@
-# aircraft
+# Flyte Demo
 
 aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ETL Example](https://docs.prefect.io/core/tutorial/01-etl-before-prefect.html)
 
@@ -7,6 +7,7 @@ aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ET
 - make
 - node (required for pyright. Install via `brew install node`)
 - python >= 3.7
+- docker
 
 ## Getting started
 
@@ -31,38 +32,33 @@ brew install flyteorg/homebrew-tap/flytectl
 Once the virtualenv has been created and activated, you can run the scripts locally, eg:
 
 ```
-python aircraft/02_etl_flow.py
+python aircraft/etl_flow.py
 ```
 
 To run in the [Flyte sandbox](https://docs.flyte.org/en/latest/deployment/sandbox.html):
 
 ```
-# Start sandbox, mounting the current dir (ie: this repo)
-flytectl sandbox start --source .
+## Start sandbox, mounting the current dir (ie: this repo)
+make sandbox 
 
-# Build the docker container inside the sandbox
-flytectl sandbox exec -- docker build . --tag aircraft:v1
+## Build the docker image inside the sandbox
+make build
 
-# Package (serialise to protobuf)
-pyflyte --pkgs aircraft package -f --image aircraft:v1
+## Deploy, ie: register and execute
+make deploy 
 
-# tell flytectl where to find the config file (if not using direnv)
-export FLYTECTL_CONFIG=$HOME/.flyte/config-sandbox.yaml
+## Visualise the execution graph
+make viz
 
-# Register
-flytectl register files --project flyteexamples --domain development --archive flyte-package.tgz --version v1
-
-# Visualise the execution graph
-flytectl get workflows --project flyteexamples --domain development aircraft.02_etl_flow.main --version v1 -o doturl
-
-# Create execution spec from launchplan
-flytectl get launchplan -p flyteexamples -d development aircraft.02_etl_flow.main --execFile exec.yaml
-
-# Execute
-flytectl create execution --project flyteexamples --domain development --execFile exec.yaml
-
-# Monitor
+## Monitor
 flytectl get execution --project flyteexamples --domain development [name]
+```
+
+Interactive commands (eg: bash) won't work properly inside the sandbox (you don't get their output).
+But you can run non-interactive commands, eg:
+
+```
+flytectl sandbox exec -- ls /root
 ```
 
 Accessing kubes:
@@ -85,6 +81,10 @@ For more info see [Building Large Apps - Deploy to the Cloud](https://docs.flyte
 
 ## Troubleshooting
 
-### [LIMIT_EXCEEDED] limit exceeded
+### \[LIMIT_EXCEEDED\] limit exceeded
 
 [Increase the storage](https://github.com/flyteorg/flyte/discussions/1342) of the sandbox.
+
+### Last Error: USER::containers with unready status: ... Back-off pulling image "aircraft:latest"
+
+Don't use the tag `latest` because Kubes will try and pull, but the image won't exist. See [Error: ImagePullBackOff](https://docs.flyte.org/en/latest/community/troubleshoot.html#error-imagepullbackoff).
