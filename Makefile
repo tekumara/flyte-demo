@@ -3,6 +3,10 @@ include .envrc
 
 v ?= v1
 
+## Run locally
+run: $(venv)
+	$(venv)/bin/python aircraft/etl_flow.py
+
 ## Start sandbox, mounting the current dir (ie: this repo)
 sandbox:
 	flytectl sandbox start --source .

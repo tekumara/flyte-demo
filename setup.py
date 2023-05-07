@@ -5,20 +5,20 @@ setup(
     version="0.0.0",
     description="aircraft etl example using Flyte",
     long_description_content_type="text/markdown",
-    python_requires=">=3.7",
+    python_requires=">=3.10",
     packages=find_packages(exclude=["tests"]),
     package_data={
         "": ["py.typed"],
     },
-    install_requires=["sqlalchemy~=1.4.41", "flytekit~=1.2.1"],
+    install_requires=["sqlalchemy~=2.0.12", "flytekit~=1.5.0"],
     extras_require={
         "dev": [
-            "black~=22.10",
+            "black~=23.3",
             "isort~=5.10",
             "flake8~=5.0",
             "flake8-annotations~=2.9",
             "flake8-colors~=0.1",
-            "pre-commit~=2.20",
+            "pre-commit~=3.3",
             "pytest~=7.1",
         ]
     },
