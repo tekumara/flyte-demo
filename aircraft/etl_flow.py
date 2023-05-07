@@ -67,7 +67,7 @@ def load_live_data(live_aircraft_data: cleaned_schema) -> None:
     db.add_live_aircraft_data(rows)
 
 
-@workflow()
+@workflow
 def main() -> None:
     reference_data = extract_reference_data()
     live_data = extract_live_data()

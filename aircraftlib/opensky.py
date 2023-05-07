@@ -79,7 +79,6 @@ AIRCRAFT_VECTOR_FIELDS = (
 def _api_request_json(req: str, options: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     response = requests.get(
         "https://opensky-network.org/api/{}".format(req),
-        auth=(),
         params=options or {},
         timeout=300.00,
     )

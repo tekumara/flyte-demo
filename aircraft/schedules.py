@@ -6,8 +6,8 @@ aircraft_etl_flow_main = ReferenceWorkflow(
     domain="development",
     name="aircraft.etl_flow.main",
     version="v1",
-    inputs=None,
-    outputs=None,
+    inputs={},
+    outputs={},
 )
 
 # creates a launch plan that runs at 10am UTC every day.
