@@ -5,8 +5,8 @@ aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ET
 ## Prerequisites
 
 - make
-- node (required for pyright. Install via `brew install node`)
-- python >= 3.7
+- node (required for pyright)
+- python >= 3.10
 - docker
 
 ## Getting started
@@ -24,15 +24,15 @@ Then run `make` to see the options for running checks, tests etc.
 Install flytectl:
 
 ```
-brew install flyteorg/homebrew-tap/flytectl
+make install-flytectl
 ```
 
 ## Flyte Usage
 
-Once the virtualenv has been created and activated, you can run the scripts locally, eg:
+Once the virtualenv has been created and activated, you can run the worklow locally, eg:
 
 ```
-python aircraft/etl_flow.py
+make run
 ```
 
 To run in the [Flyte sandbox](https://docs.flyte.org/en/latest/deployment/sandbox.html):

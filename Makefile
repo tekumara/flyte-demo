@@ -3,6 +3,10 @@ include .envrc
 
 v ?= v1
 
+## Install flytectl (requires sudo)
+install-flytectl:
+	tools/install_flytectl.sh
+	
 ## Run locally
 run: $(venv)
 	$(venv)/bin/python aircraft/etl_flow.py
