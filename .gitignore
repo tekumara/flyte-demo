@@ -1,3 +1,4 @@
+.eggs/
 .idea/
 .vscode/
 *.code-workspace
@@ -14,7 +15,9 @@ typings/
 pip-wheel-metadata/
 node_modules/
 .venv/
+.env
 flyte-package.tgz
 .kube/
 aircraft-db.sqlite
 exec.yaml
+

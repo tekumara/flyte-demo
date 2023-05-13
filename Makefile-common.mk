@@ -16,7 +16,7 @@ $(pip):
 	$(venv)/bin/python --version
 	$(pip) install pip~=23.1 wheel~=0.40
 
-$(venv): setup.py $(pip)
+$(venv): $(if $(value CI),|,) pyproject.toml $(pip)
 	$(pip) install -e '.[dev]'
 	touch $(venv)
 
@@ -27,18 +27,12 @@ clean:
 ## create venv and install this package and hooks
 install: $(venv) node_modules $(if $(value CI),,install-hooks)
 
-## format all code
-format: $(venv)
-	$(venv)/bin/autoflake --in-place --recursive --remove-all-unused-imports --exclude venv .
-	$(venv)/bin/black .
-	$(venv)/bin/isort .
-
 ## lint code and run static type check
 check: lint pyright
 
-## lint using flake8
+## lint and format code
 lint: $(venv)
-	$(venv)/bin/flake8
+	SKIP=pyright,test $(venv)/bin/pre-commit run --show-diff-on-failure --color=always --all-files --hook-stage push
 
 node_modules: package.json
 	npm install --no-save

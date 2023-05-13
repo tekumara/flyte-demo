@@ -2,30 +2,19 @@
 
 aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ETL Example](https://docs-v1.prefect.io/core/tutorial/01-etl-before-prefect.html)
 
-## Prerequisites
+## Getting started
+
+Prerequisites:
 
 - make
 - node (required for pyright)
 - python >= 3.10
 - docker
 
-## Getting started
+To start:
 
-To get started run `make install`. This will:
-
-- install git hooks for formatting & linting on git push
-- create the virtualenv in _.venv/_
-- install this package in editable mode
-
-Then run `make` to see the options for running checks, tests etc.
-
-`. .venv/bin/activate` activates the virtualenv. When the requirements in `setup.py` change, the virtualenv is updated by the make targets that use the virtualenv.
-
-Install flytectl:
-
-```
-make install-flytectl
-```
+- Install the [development environment](CONTRIBUTING.md#getting-started): `make install`
+- Install flytectl: `make flytectl`
 
 ## Flyte Usage
 

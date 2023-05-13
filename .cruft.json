@@ -1,10 +1,10 @@
 {
   "template": "git@github.com:tekumara/python-typed-template.git",
-  "commit": "e4bc183e3b15d8272e0379abbf4a2fa1f743e1e2",
+  "commit": "19b84d7c78e6121b4af02be5a4161eb4184a11ca",
   "checkout": null,
   "context": {
     "cookiecutter": {
-      "repo_name": "aircraft-flyte",
+      "repo_name": "flyte-demo",
       "package_name": "aircraft",
       "distribution_name": "aircraft",
       "description": "aircraft etl example using Flyte",

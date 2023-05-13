@@ -5,7 +5,7 @@ v ?= v1
 image = localhost:30000/aircraft:$(v)
 
 ## Install flytectl (requires sudo)
-install-flytectl:
+flytectl:
 	tools/install_flytectl.sh
 
 ## Run locally
