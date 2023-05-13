@@ -2,7 +2,7 @@ from flytekit import CronSchedule, LaunchPlan
 from flytekit.core.workflow import ReferenceWorkflow
 
 aircraft_etl_flow_main = ReferenceWorkflow(
-    project="flyteexamples",
+    project="flytesnacks",
     domain="development",
     name="aircraft.etl_flow.main",
     version="v1",

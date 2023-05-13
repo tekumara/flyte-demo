@@ -1,0 +1,5 @@
+# applied as the flyte-sandbox-extra-config configmap
+storage:
+  limits:
+    # to avoid limit exceeded see https://github.com/flyteorg/flyte/discussions/1342
+    maxDownloadMBs: 10

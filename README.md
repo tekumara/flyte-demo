@@ -1,6 +1,6 @@
 # Flyte Demo
 
-aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ETL Example](https://docs.prefect.io/core/tutorial/01-etl-before-prefect.html)
+aircraft etl example using Flyte, adapted from the [Prefect Tutorial Aircraft ETL Example](https://docs-v1.prefect.io/core/tutorial/01-etl-before-prefect.html)
 
 ## Prerequisites
 
@@ -35,13 +35,13 @@ Once the virtualenv has been created and activated, you can run the worklow loca
 make run
 ```
 
-To run in the [Flyte sandbox](https://docs.flyte.org/en/latest/deployment/sandbox.html):
+To run in the [Flyte sandbox](https://docs.flyte.org/en/latest/deployment/deployment/sandbox.html):
 
 ```
-## Start sandbox, mounting the current dir (ie: this repo)
+## Start demo sandbox, mounting the current dir (ie: this repo)
 make sandbox 
 
-## Build the docker image inside the sandbox
+## Build the docker image and push it to the sandbox
 make build
 
 ## Deploy, ie: register and execute
@@ -51,39 +51,33 @@ make deploy
 make viz
 
 ## Monitor
-flytectl get execution --project flyteexamples --domain development [name]
+flytectl get execution --project flytesnacks --domain development
 ```
 
-Interactive commands (eg: bash) won't work properly inside the sandbox (you don't get their output).
+Interactive commands (eg: ash) won't work properly inside the sandbox (you don't get their output).
 But you can run non-interactive commands, eg:
 
 ```
-flytectl sandbox exec -- ls /root
+flytectl sandbox exec -- ls
 ```
 
 Accessing kubes:
 
 ```
 # set kubeconfig (if not using direnv)
-export KUBECONFIG=$HOME/.flyte/k3s/k3s.yaml
+export KUBECONFIG=$HOME/.flyte/config-sandbox.yaml
 
 # set default namespace to aid debugging
-kubectl config set-context --current --namespace=flyteexamples-development
+kubectl config set-context --current --namespace=flytesnacks-development
 ```
 
-Visit the UI: [http://localhost:30081/console](http://localhost:30081/console)
+Visit the UI: [http://localhost:30080/console](http://localhost:30080/console)
 
-For more info see [Building Large Apps - Deploy to the Cloud](https://docs.flyte.org/projects/cookbook/en/latest/auto/larger_apps/larger_apps_deploy.html)
-
-## Known issues
+## FAQ
 
 [What is the distinction between flytectl sandbox and flytectl demo](https://github.com/flyteorg/flyte/issues/2503)
 
 ## Troubleshooting
-
-### \[LIMIT_EXCEEDED\] limit exceeded
-
-[Increase the storage](https://github.com/flyteorg/flyte/discussions/1342) of the sandbox.
 
 ### Last Error: USER::containers with unready status: ... Back-off pulling image "aircraft:latest"
 
