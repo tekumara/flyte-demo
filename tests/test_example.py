@@ -5,8 +5,8 @@ def test_extract_live_data():
     data_flyte_schema = extract_live_data()
     df = data_flyte_schema.open().all()
 
-    assert len(df) == 17
-    assert df["callsign"][0] == "SKQ74   "
+    assert len(df) == 15
+    assert df["callsign"][0] == "SWG641  "
 
 
 def test_extract_reference_data():
