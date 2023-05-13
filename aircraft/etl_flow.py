@@ -18,7 +18,6 @@ cleaned_schema = FlyteSchema[cleaned_fields]
 @task()
 def extract_reference_data() -> OpenFlightsData:
     print("fetching reference data...")
-    # return OpenFlightsData(routes = [{"MAO":"CIZ"}], airlines= {"0B":"Blue Air"}, airports={"AAA": {"lat": "1", "lon": "2"}})
     return aclib.fetch_reference_data()
 
 

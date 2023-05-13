@@ -25,21 +25,21 @@ class Position:
 def bounding_box(position: Position, radius_km: float) -> "Area":
     lat = deg2rad(degrees=position.lat)
     lon = deg2rad(degrees=position.long)
-    halfSide = 1000 * radius_km
+    half_side = 1000 * radius_km
 
     # Radius of Earth at given latitude
     radius = wgs84_earth_radius(lat=lat)
     # Radius of the parallel at given latitude
     pradius = radius * math.cos(lat)
 
-    latMin = lat - halfSide / radius
-    latMax = lat + halfSide / radius
-    lonMin = lon - halfSide / pradius
-    lonMax = lon + halfSide / pradius
+    lat_min = lat - half_side / radius
+    lat_max = lat + half_side / radius
+    lon_min = lon - half_side / pradius
+    lon_max = lon + half_side / pradius
 
     return Area(
-        point1=Position(rad2deg(latMin), rad2deg(lonMin)),
-        point2=Position(rad2deg(latMax), rad2deg(lonMax)),
+        point1=Position(rad2deg(lat_min), rad2deg(lon_min)),
+        point2=Position(rad2deg(lat_max), rad2deg(lon_max)),
     )
 
 
@@ -81,8 +81,8 @@ def rad2deg(radians: float) -> float:
 
 # Earth radius at a given latitude, according to the WGS-84 ellipsoid [m]
 def wgs84_earth_radius(lat: float) -> float:
-    An = WGS84_a * WGS84_a * math.cos(lat)
-    Bn = WGS84_b * WGS84_b * math.sin(lat)
-    Ad = WGS84_a * math.cos(lat)
-    Bd = WGS84_b * math.sin(lat)
-    return math.sqrt((An * An + Bn * Bn) / (Ad * Ad + Bd * Bd))
+    an = WGS84_a * WGS84_a * math.cos(lat)
+    bn = WGS84_b * WGS84_b * math.sin(lat)
+    ad = WGS84_a * math.cos(lat)
+    bd = WGS84_b * math.sin(lat)
+    return math.sqrt((an * an + bn * bn) / (ad * ad + bd * bd))

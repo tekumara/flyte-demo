@@ -1,8 +1,7 @@
-from aircraft.etl_flow import extract_live_data, extract_reference_data, transform
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-from aircraft.etl_flow import cleaned_fields
+from aircraft.etl_flow import cleaned_fields, extract_live_data, extract_reference_data, transform
 
 
 def test_extract_live_data():
