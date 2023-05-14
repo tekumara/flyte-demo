@@ -10,19 +10,23 @@ flytectl:
 
 ## Run locally
 run: $(venv)
-	$(venv)/bin/python aircraft/etl_flow.py
+	$(venv)/bin/pyflyte run aircraft/etl_flow.py main
 
 ~/.flyte/sandbox/config.yaml: infra/config.yaml
 	mkdir -p ~/.flyte/sandbox
 	cp infra/config.yaml ~/.flyte/sandbox/config.yaml
 
-## Start demo sandbox
+## Create demo sandbox
 sandbox: ~/.flyte/sandbox/config.yaml
 	flytectl demo start
 
 ## Tail sandbox logs
 sandbox-logs:
 	docker logs -f flyte-sandbox
+
+## Start the sandbox
+start:
+	docker start flyte-sandbox
 
 ## Reload sandbox (useful after changing config.yaml)
 reload:
@@ -47,8 +51,12 @@ deploy: $(venv)
 # Execute
 	flytectl create execution --project flytesnacks --domain development --execFile exec.yaml
 
-	@echo Visit the UI: http://localhost:30081/console/projects/flytesnacks/executions?domain=development&duration=all
+	@echo Visit the UI: http://localhost:30080/console/projects/flytesnacks/executions?domain=development&duration=all
 
 # Visualise the execution graph
 viz: $(venv)
 	flytectl get workflows --project flytesnacks --domain development aircraft.etl_flow.main --version $(v) -o doturl
+
+# Get all executions
+ge:
+	flytectl get execution --project flytesnacks --domain development

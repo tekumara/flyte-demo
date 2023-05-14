@@ -39,8 +39,8 @@ make deploy
 ## Visualise the execution graph
 make viz
 
-## Monitor
-flytectl get execution --project flytesnacks --domain development
+## Monitor ie: get all executions
+make ge
 ```
 
 Interactive commands (eg: ash) won't work properly inside the sandbox (you don't get their output).
