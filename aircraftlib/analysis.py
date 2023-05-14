@@ -22,7 +22,7 @@ FIELDS_OF_INTEREST = OrderedDict(
 
 
 def clean_vector(raw_vector: List[Any]) -> Optional[Dict[str, Any]]:
-    clean = dict(zip(AIRCRAFT_VECTOR_FIELDS, raw_vector[:], strict=True))
+    clean: Dict[str, Any] = dict(zip(AIRCRAFT_VECTOR_FIELDS, raw_vector[:], strict=True))
 
     if None in (clean["longitude"], clean["latitude"]):
         # this is an invalid vector, ignore it

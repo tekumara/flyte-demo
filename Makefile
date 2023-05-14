@@ -60,3 +60,9 @@ viz: $(venv)
 # Get all executions
 ge:
 	flytectl get execution --project flytesnacks --domain development
+
+# Get task definitions for version
+gt:
+# filter use jq until https://github.com/flyteorg/flyte/issues/3679
+	flytectl get task -p flytesnacks -d development -o json | jq 'map(select(.id.version == "$(v)"))'
+

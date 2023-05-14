@@ -28,13 +28,13 @@ To run in the [Flyte sandbox](https://docs.flyte.org/en/latest/deployment/deploy
 
 ```
 ## Start demo sandbox, mounting the current dir (ie: this repo)
-make sandbox 
+make sandbox
 
 ## Build the docker image and push it to the sandbox
 make build
 
 ## Deploy, ie: register and execute
-make deploy 
+make deploy
 
 ## Visualise the execution graph
 make viz
@@ -60,13 +60,21 @@ export KUBECONFIG=$HOME/.flyte/config-sandbox.yaml
 kubectl config set-context --current --namespace=flytesnacks-development
 ```
 
-Visit the UI: [http://localhost:30080/console](http://localhost:30080/console)
+## UI
+
+- Flyte console: [http://localhost:30080/console](http://localhost:30080/console)
+- Minio console: [http://localhost:30002/](http://localhost:30002/). User: `minio` pass: `miniostorage`.
+- Kubes dashboard: [http://localhost:30080/kubernetes-dashboard](http://localhost:30080/kubernetes-dashboard)
 
 ## FAQ
 
 [What is the distinction between flytectl sandbox and flytectl demo](https://github.com/flyteorg/flyte/issues/2503)
 
 ## Troubleshooting
+
+### task with different structure already exists
+
+Existing tasks cannot be deleted. So instead, register the task with a new version. Version strings are arbitrary.
 
 ### Last Error: USER::containers with unready status: ... Back-off pulling image "aircraft:latest"
 
