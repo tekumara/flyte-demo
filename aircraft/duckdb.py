@@ -104,22 +104,10 @@ def coalesce_dfs(sds: peak_hour_output, years: List[int]) -> vaex_dfs_list:
     pickup_df, dropoff_df = None, None
 
     for index, item in enumerate(sds, start=1):
-        materialized_pickup_df = (
-            item["pickup_sd"].open(vaex.dataframe.DataFrameLocal).all()
-        )
-        materialized_dropoff_df = (
-            item["dropoff_sd"].open(vaex.dataframe.DataFrameLocal).all()
-        )
-        pickup_df = (
-            vaex.concat([pickup_df, materialized_pickup_df])
-            if pickup_df
-            else materialized_pickup_df
-        )
-        dropoff_df = (
-            vaex.concat([dropoff_df, materialized_dropoff_df])
-            if dropoff_df
-            else materialized_dropoff_df
-        )
+        materialized_pickup_df = item["pickup_sd"].open(vaex.dataframe.DataFrameLocal).all()
+        materialized_dropoff_df = item["dropoff_sd"].open(vaex.dataframe.DataFrameLocal).all()
+        pickup_df = vaex.concat([pickup_df, materialized_pickup_df]) if pickup_df else materialized_pickup_df
+        dropoff_df = vaex.concat([dropoff_df, materialized_dropoff_df]) if dropoff_df else materialized_dropoff_df
         # for every year, store the number of pickups and dropoffs
         if index % end_index == 0:
             year = item["year"]
@@ -192,9 +180,7 @@ def peak_offpeak_hours(dfs: vaex_dfs_list) -> List[PeakOffPeak]:
 
 
 @workflow
-def duckdb_wf(
-    years: List[int] = [2019, 2020, 2021, 2022], months: List[int] = list(range(1, 13))
-) -> List[PeakOffPeak]:
+def duckdb_wf(years: List[int] = [2019, 2020, 2021, 2022], months: List[int] = list(range(1, 13))) -> List[PeakOffPeak]:
     result_dfs = fetch_trips_data(years=years, months=months)
     generate_plot(dfs=result_dfs)
     return peak_offpeak_hours(dfs=result_dfs)
