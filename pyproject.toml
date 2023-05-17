@@ -9,6 +9,7 @@ dependencies = [
     "flytekit~=1.6.0",
     "flytekitplugins-duckdb",
     "flytekitplugins-vaex",
+    "flytekit-deck-standard",
     "mpld3",
     "vaex-viz",
 ]

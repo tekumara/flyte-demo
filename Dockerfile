@@ -20,6 +20,7 @@ RUN python3 -m venv ${VENV}
 ENV PATH="${VENV}/bin:$PATH"
 
 # python dependencies
+COPY pip.conf ${VENV}/
 COPY setup.py pyproject.toml /root/
 RUN pip install --no-cache-dir -e .
 
