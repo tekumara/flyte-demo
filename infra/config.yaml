@@ -1,5 +1,12 @@
-# applied as the flyte-sandbox-extra-config configmap
+# applied as the configmap flyte-sandbox-extra-config -n flyte
+# run make reload to apply
 storage:
   limits:
     # to avoid limit exceeded see https://github.com/flyteorg/flyte/discussions/1342
     maxDownloadMBs: 10
+
+task_resources:
+  defaults:
+    # set default kube requests and limits to 500Mi
+    # instead of the 200Mi that is baked into the sandbox
+    memory: 500Mi

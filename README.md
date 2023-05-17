@@ -79,3 +79,7 @@ Existing tasks cannot be deleted. So instead, register the task with a new versi
 ### Last Error: USER::containers with unready status: ... Back-off pulling image "aircraft:latest"
 
 Don't use the tag `latest` because Kubes will try and pull, but the image won't exist. See [Error: ImagePullBackOff](https://docs.flyte.org/en/latest/community/troubleshoot.html#error-imagepullbackoff).
+
+### Last Error: USER::
+
+If the pods have been `OOMKilled` then increase the kubernetes memory limits on the task, or up the defaults in [infra/config.yaml](infra/config.yaml)  

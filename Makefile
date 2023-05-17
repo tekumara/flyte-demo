@@ -29,7 +29,7 @@ start:
 	docker start flyte-sandbox
 
 ## Reload sandbox (useful after changing config.yaml)
-reload:
+reload: ~/.flyte/sandbox/config.yaml
 	flytectl demo reload
 
 ## Build docker image and push to the sandbox docker registry
